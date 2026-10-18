@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeStorage — Penyimpanan Pribadi di Browser Anda</title>
+  <meta name="description" content="Simpan file dan catatan penting langsung di browser Anda. Tanpa akun, tanpa server. 100% privat dan lokal.">
+  <meta name="keywords" content="penyimpanan lokal, file browser, catatan pribadi, privasi, offline storage">
+  <meta name="theme-color" content="#0b1020">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <span class="logo-text">HomeStorage</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigasi">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-right">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#features">Fitur</a></li>
+          <li><a href="#storage">Penyimpanan</a></li>
+          <li><a href="#about">Tentang</a></li>
+        </ul>
+
+        <div class="nav-auth-group" id="navAuthGroup">
+          <div class="server-status-pill" id="serverStatusPill" title="Status koneksi server backend">
+            <span class="status-dot status-offline" id="serverStatusDot"></span>
+            <span class="status-text" id="serverStatusText">Mengecek server...</span>
+          </div>
+
+          <!-- Guest State: Login Button -->
+          <button class="btn btn-sm btn-primary-glass" id="btnOpenAuth">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            <span>Masuk / Akun</span>
+          </button>
+
+          <!-- User State: Profile & Logout -->
+          <div class="user-profile-menu hidden" id="userProfileMenu">
+            <div class="user-pill" id="userPill">
+              <div class="user-avatar" id="userAvatar">U</div>
+              <span class="user-name" id="userName">User</span>
+            </div>
+            <button class="btn btn-sm btn-logout" id="btnLogout" title="Keluar dari akun">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              <span>Keluar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-glow hero-glow-1"></div>
+      <div class="hero-glow hero-glow-2"></div>
+      <div class="hero-glow hero-glow-3"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge animate-fade-up">
+        <span class="badge-dot"></span>
+        100% tersimpan di perangkat Anda
+      </div>
+      <h1 class="hero-title animate-fade-up delay-1">
+        Simpan File &amp; Catatan<br>
+        <span class="gradient-text">Penting di Browser Anda</span>
+      </h1>
+      <p class="hero-desc animate-fade-up delay-2">
+        Penyimpanan pribadi yang cepat, aman, dan privat. Tanpa akun, tanpa server — data Anda hanya milik Anda.
+      </p>
+      <div class="hero-actions animate-fade-up delay-3">
+        <button class="btn btn-primary btn-glow" id="ctaUpload">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Mulai Unggah File
+        </button>
+        <a href="#storage" class="btn btn-secondary" id="ctaStorage">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          Lihat Penyimpanan
+        </a>
+      </div>
+      <div class="hero-stats animate-fade-up delay-4">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-files">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="statFiles">0</div>
+          <div class="stat-label">File Tersimpan</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-size">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+              <line x1="6" y1="6" x2="6.01" y2="6"/>
+              <line x1="6" y1="18" x2="6.01" y2="18"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="statSize">0 B</div>
+          <div class="stat-label">Total Ukuran</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-notes">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="statNotes">0</div>
+          <div class="stat-label">Catatan</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">Mengapa HomeStorage?</span>
+        <h2 class="section-title">Fitur yang <span class="gradient-text">Anda Butuhkan</span></h2>
+        <p class="section-desc">Semua yang Anda perlukan untuk menyimpan data penting, langsung di browser Anda.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon feature-icon-privacy">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3>Privasi Terjaga</h3>
+          <p>Data tersimpan 100% di perangkat Anda. Tidak ada yang dikirim ke server manapun.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon feature-icon-speed">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3>Akses Instan</h3>
+          <p>Tanpa registrasi, tanpa loading. Buka dan langsung gunakan kapan saja.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon feature-icon-organize">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3>File &amp; Catatan</h3>
+          <p>Simpan berbagai tipe file dan catatan penting dalam satu tempat yang terorganisir.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon feature-icon-backup">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </div>
+          <h3>Backup Mudah</h3>
+          <p>Export seluruh data dalam satu klik. Cadangkan file dan catatan Anda kapan saja.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STORAGE ===== -->
+  <section class="storage" id="storage">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">Mulai Simpan</span>
+        <h2 class="section-title">Penyimpanan <span class="gradient-text">Anda</span></h2>
+      </div>
+
+      <div class="storage-panel animate-on-scroll">
+        <!-- Storage Mode & Sync Banner -->
+        <div class="storage-mode-banner" id="storageModeBanner">
+          <div class="mode-info">
+            <span class="mode-icon" id="modeIcon">💾</span>
+            <div class="mode-text-group">
+              <div class="mode-title-row">
+                <strong id="modeTitle">Penyimpanan Lokal (Offline)</strong>
+                <span class="mode-chip" id="modeChip">IndexedDB</span>
+              </div>
+              <p id="modeDesc">Data tersimpan di browser Anda. Masuk ke akun untuk beralih ke penyimpanan server cloud.</p>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline-sync hidden" id="btnSyncLocal" title="Unggah seluruh file & catatan lokal ini ke akun cloud Anda">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            <span>Sinkronkan ke Cloud</span>
+          </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="storage-controls">
+          <div class="search-wrapper">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="Cari file atau catatan...">
+          </div>
+          <button class="btn btn-export" id="btnExport">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export Semua Data
+          </button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="storage-tabs">
+          <button class="tab-btn active" id="tabFiles" data-tab="files">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            File
+            <span class="tab-count" id="tabFilesCount"></span>
+          </button>
+          <button class="tab-btn" id="tabNotes" data-tab="notes">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            Catatan
+            <span class="tab-count" id="tabNotesCount"></span>
+          </button>
+        </div>
+
+        <!-- Files Panel -->
+        <div class="tab-panel active" id="panelFiles">
+          <!-- Dropzone -->
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" multiple hidden>
+            <div class="dropzone-content">
+              <div class="dropzone-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <p class="dropzone-text">Klik atau seret file ke sini untuk mengunggah</p>
+              <p class="dropzone-hint">Mendukung semua jenis file</p>
+            </div>
+          </div>
+          <!-- File List -->
+          <div class="item-list" id="fileList"></div>
+        </div>
+
+        <!-- Notes Panel -->
+        <div class="tab-panel" id="panelNotes">
+          <!-- Note Form -->
+          <div class="note-form">
+            <div class="form-group">
+              <input type="text" class="form-input" id="noteTitle" placeholder="Judul catatan">
+            </div>
+            <div class="form-group">
+              <textarea class="form-textarea" id="noteContent" placeholder="Tulis catatan Anda di sini..." rows="4"></textarea>
+            </div>
+            <div class="form-actions">
+              <span class="form-hint">Ctrl + Enter untuk menyimpan</span>
+              <button class="btn btn-primary" id="btnSaveNote">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                  <polyline points="17 21 17 13 7 13 7 21"/>
+                  <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                Simpan Catatan
+              </button>
+            </div>
+          </div>
+          <!-- Notes List -->
+          <div class="item-list" id="noteList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge">Tentang</span>
+        <h2 class="section-title">Bagaimana <span class="gradient-text">Cara Kerjanya?</span></h2>
+        <p class="section-desc">HomeStorage menggunakan IndexedDB, teknologi penyimpanan bawaan browser, untuk menyimpan seluruh data Anda secara lokal.</p>
+      </div>
+      <div class="about-steps">
+        <div class="step-card animate-on-scroll">
+          <div class="step-number">01</div>
+          <h3>Unggah atau Tulis</h3>
+          <p>Seret file ke area unggah atau tulis catatan penting Anda. Semua disimpan secara instan.</p>
+        </div>
+        <div class="step-connector animate-on-scroll">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M0 12h32M28 6l6 6-6 6" stroke-dasharray="4 4"/>
+          </svg>
+        </div>
+        <div class="step-card animate-on-scroll">
+          <div class="step-number">02</div>
+          <h3>Kelola &amp; Cari</h3>
+          <p>Temukan data Anda dengan pencarian cepat. Unduh, salin, atau hapus kapan saja.</p>
+        </div>
+        <div class="step-connector animate-on-scroll">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M0 12h32M28 6l6 6-6 6" stroke-dasharray="4 4"/>
+          </svg>
+        </div>
+        <div class="step-card animate-on-scroll">
+          <div class="step-number">03</div>
+          <h3>Backup Data</h3>
+          <p>Export seluruh data dalam satu klik sebagai file JSON untuk cadangan yang aman.</p>
+        </div>
+      </div>
+      <div class="about-notice animate-on-scroll">
+        <div class="notice-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <p>Data disimpan di browser Anda dan dapat hilang jika cache dibersihkan. Lakukan backup berkala untuk menjaga keamanan data Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <span>HomeStorage</span>
+      </div>
+      <p class="footer-text">Penyimpanan pribadi Anda. 100% lokal, 100% privat.</p>
+      <p class="footer-copy">&copy; 2026 HomeStorage. Dibuat dengan ❤️ untuk privasi Anda.</p>
+    </div>
+  </footer>
+
+  <!-- ===== AUTH MODAL ===== -->
+  <div class="auth-overlay" id="authModal">
+    <div class="auth-modal-card">
+      <button class="auth-close-btn" id="btnAuthClose" aria-label="Tutup modal">&times;</button>
+      <div class="auth-header">
+        <div class="auth-logo">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <span class="logo-text">HomeStorage Cloud</span>
+        </div>
+        <h3 class="auth-title" id="authModalTitle">Masuk ke Akun Anda</h3>
+        <p class="auth-subtitle" id="authModalSubtitle">Akses file dan catatan Anda dengan aman dari mana saja.</p>
+      </div>
+
+      <!-- Auth Switcher Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabBtnLogin" type="button">Masuk</button>
+        <button class="auth-tab-btn" id="tabBtnRegister" type="button">Daftar Akun</button>
+      </div>
+
+      <div class="auth-alert hidden" id="authAlert"></div>
+
+      <!-- Login Form -->
+      <form class="auth-form" id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email</label>
+          <div class="input-icon-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" class="form-input" id="loginEmail" placeholder="nama@email.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Kata Sandi</label>
+          <div class="input-icon-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="btn-toggle-pwd" data-target="loginPassword" aria-label="Lihat kata sandi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-auth-submit" id="btnLoginSubmit">
+          <span>Masuk Sekarang</span>
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form class="auth-form hidden" id="registerForm">
+        <div class="form-group">
+          <label class="form-label" for="regName">Nama Lengkap</label>
+          <div class="input-icon-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" class="form-input" id="regName" placeholder="Contoh: Alex Pratama" required autocomplete="name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regEmail">Email</label>
+          <div class="input-icon-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" class="form-input" id="regEmail" placeholder="nama@email.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPassword">Kata Sandi (min. 6 karakter)</label>
+          <div class="input-icon-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input type="password" class="form-input" id="regPassword" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+            <button type="button" class="btn-toggle-pwd" data-target="regPassword" aria-label="Lihat kata sandi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-auth-submit" id="btnRegisterSubmit">
+          <span>Daftar &amp; Masuk</span>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Data Anda terenkripsi dengan aman melalui token JWT.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== CONFIRM DIALOG ===== -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-dialog">
+      <div class="confirm-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </div>
+      <p class="confirm-message" id="confirmMessage">Apakah Anda yakin?</p>
+      <div class="confirm-actions">
+        <button class="btn btn-secondary btn-sm" id="confirmCancel">Batal</button>
+        <button class="btn btn-danger btn-sm" id="confirmOk">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

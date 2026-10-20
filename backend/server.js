@@ -9,19 +9,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 
-// Buat folder uploads jika belum ada
 if (!fs.existsSync(UPLOAD_DIR)) {
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
 
-// Inisialisasi SQLite Database
 const dbFile = path.join(__dirname, 'homestorage.db');
 const db = new sqlite3.Database(dbFile, (err) => {
     if (err) console.error('Gagal membuka database:', err.message);
     else console.log('Terhubung ke database SQLite.');
 });
 
-// Buat tabel jika belum ada
 db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS files (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,13 +38,11 @@ db.serialize(() => {
     )`);
 });
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../'))); // Menyajikan file statis dari root workspace jika diinginkan
+app.use(express.static(path.join(__dirname, '../')));
 
-// Konfigurasi Multer untuk Upload File
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, UPLOAD_DIR),
     filename: (req, file, cb) => {
@@ -57,29 +52,23 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// --- API ROUTES ---
-
-// 1. Ambil Statistik & Semua Data
+// API Data
 app.get('/api/data', (req, res) => {
     db.all(`SELECT * FROM files ORDER BY id DESC`, [], (err, files) => {
         if (err) return res.status(500).json({ error: err.message });
-        
         db.all(`SELECT * FROM notes ORDER BY id DESC`, [], (err, notes) => {
             if (err) return res.status(500).json({ error: err.message });
-            
             res.json({ files, notes });
         });
     });
 });
 
-// 2. Upload File
+// Upload File
 app.post('/api/files', upload.array('files'), (req, res) => {
     if (!req.files || req.files.length === 0) {
         return res.status(400).json({ error: 'Tidak ada file yang diunggah.' });
     }
-
     const stmt = db.prepare(`INSERT INTO files (name, original_name, mime_type, size, path) VALUES (?, ?, ?, ?, ?)`);
-    
     let completed = 0;
     req.files.forEach(file => {
         stmt.run(file.filename, file.originalname, file.mimetype, file.size, file.path, function(err) {
@@ -92,7 +81,7 @@ app.post('/api/files', upload.array('files'), (req, res) => {
     });
 });
 
-// 3. Download File
+// Download File
 app.get('/api/files/:id/download', (req, res) => {
     const id = req.params.id;
     db.get(`SELECT * FROM files WHERE id = ?`, [id], (err, file) => {
@@ -101,16 +90,12 @@ app.get('/api/files/:id/download', (req, res) => {
     });
 });
 
-// 4. Hapus File
+// Delete File
 app.delete('/api/files/:id', (req, res) => {
     const id = req.params.id;
     db.get(`SELECT * FROM files WHERE id = ?`, [id], (err, file) => {
         if (err || !file) return res.status(404).json({ error: 'File tidak ditemukan.' });
-
-        if (fs.existsSync(file.path)) {
-            fs.unlinkSync(file.path);
-        }
-
+        if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
         db.run(`DELETE FROM files WHERE id = ?`, [id], (err) => {
             if (err) return res.status(500).json({ error: err.message });
             res.json({ message: 'File berhasil dihapus.' });
@@ -118,13 +103,10 @@ app.delete('/api/files/:id', (req, res) => {
     });
 });
 
-// 5. Tambah Catatan
+// Add Note
 app.post('/api/notes', (req, res) => {
     const { title, content } = req.body;
-    if (!title && !content) {
-        return res.status(400).json({ error: 'Judul atau isi catatan wajib diisi.' });
-    }
-
+    if (!title && !content) return res.status(400).json({ error: 'Judul atau isi catatan wajib diisi.' });
     const stmt = db.prepare(`INSERT INTO notes (title, content) VALUES (?, ?)`);
     stmt.run(title || 'Tanpa Judul', content || '', function(err) {
         stmt.finalize();
@@ -133,7 +115,7 @@ app.post('/api/notes', (req, res) => {
     });
 });
 
-// 6. Hapus Catatan
+// Delete Note
 app.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     db.run(`DELETE FROM notes WHERE id = ?`, [id], (err) => {
@@ -142,17 +124,15 @@ app.delete('/api/notes/:id', (req, res) => {
     });
 });
 
-// 7. Export Semua Data (JSON Backup)
+// Export Data
 app.get('/api/export', (req, res) => {
     db.all(`SELECT * FROM files`, [], (err, files) => {
         if (err) return res.status(500).json({ error: err.message });
-
         db.all(`SELECT * FROM notes`, [], (err, notes) => {
             if (err) return res.status(500).json({ error: err.message });
-
             const exportData = {
                 app: "HomeStorage",
-                version: "1.1-backend",
+                version: "1.1-server",
                 exportedAt: new Date().toISOString(),
                 files: files.map(f => ({
                     name: f.original_name,
@@ -167,7 +147,6 @@ app.get('/api/export', (req, res) => {
                     date: new Date(n.created_at).getTime()
                 }))
             };
-
             res.setHeader('Content-Type', 'application/json');
             res.setHeader('Content-Disposition', `attachment; filename=home-storage-backup-${new Date().toISOString().split('T')[0]}.json`);
             res.send(JSON.stringify(exportData, null, 2));
@@ -175,7 +154,6 @@ app.get('/api/export', (req, res) => {
     });
 });
 
-// Jalankan Server
 app.listen(PORT, () => {
     console.log(`Backend HomeStorage berjalan di http://localhost:${PORT}`);
 });

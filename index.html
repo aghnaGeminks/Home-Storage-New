@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HomeStorage — Penyimpanan File & Catatan Privat Lokal</title>
+    <title>HomeStorage — Penyimpanan File & Catatan Privat Server</title>
     <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -29,7 +29,6 @@
     <meta name="theme-color" content="#0b1020">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0b1020; color: #f8fafc; }
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0b1020; }
         ::-webkit-scrollbar-thumb { background: #1e294b; border-radius: 4px; }
@@ -67,29 +66,24 @@
 
     <!-- Hero Section -->
     <section class="relative pt-20 pb-16 overflow-hidden border-b border-brand-border">
-        <!-- Glow background effects -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none"></div>
         <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            <!-- Privacy Badge -->
             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-card border border-brand-border text-xs font-medium text-slate-300 mb-8 shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>100% tersimpan di perangkat Anda • Tanpa Server / Cloud Pihak Ketiga</span>
+                <span>Tersimpan di Database Server • Akses dari Perangkat Lain Mana Saja</span>
             </div>
 
-            <!-- Headline -->
             <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight mb-6">
-                Penyimpanan File & Catatan Privat, <span class="bg-gradient-to-r from-indigo-400 via-cyan-300 to-cyan-400 bg-clip-text text-transparent">Cepat & Aman di Browser</span>
+                Penyimpanan File & Catatan Tersinkron, <span class="bg-gradient-to-r from-indigo-400 via-cyan-300 to-cyan-400 bg-clip-text text-transparent">Bisa Dibuka di Semua Device</span>
             </h1>
 
-            <!-- Subtitle -->
             <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Simpan dokumen penting, gambar, arsip, dan catatan rahasia langsung di perangkat Anda tanpa registrasi akun. Privasi penuh di tangan Anda.
+                Simpan dokumen, gambar, arsip, dan catatan penting Anda ke server database pusat agar dapat diakses kapan saja dari handphone, laptop, atau komputer lain.
             </p>
 
-            <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                 <a href="#penyimpanan" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold shadow-xl shadow-indigo-600/30 transition flex items-center justify-center gap-3 group">
                     <i class="fa-solid fa-cloud-arrow-up text-cyan-300 group-hover:-translate-y-0.5 transition"></i> Mulai Unggah File
@@ -99,7 +93,6 @@
                 </a>
             </div>
 
-            <!-- Stats Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
                 <div class="bg-brand-card/70 backdrop-blur-sm border border-brand-border rounded-2xl p-5 text-center shadow-sm">
                     <div class="text-xs uppercase tracking-wider text-slate-400 font-medium mb-1">File Tersimpan</div>
@@ -122,9 +115,7 @@
     <main id="penyimpanan" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             
-            <!-- Left Sidebar / Actions Form -->
             <div class="lg:col-span-1 space-y-6">
-                <!-- Upload Panel -->
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 shadow-xl">
                     <h2 class="text-base sm:text-lg font-semibold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-file-arrow-up text-cyan-400"></i> Unggah File Baru
@@ -140,7 +131,6 @@
                     </div>
                 </div>
 
-                <!-- Note Form Panel -->
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 shadow-xl">
                     <h2 class="text-base sm:text-lg font-semibold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-note-sticky text-indigo-400"></i> Buat Catatan Baru
@@ -159,12 +149,9 @@
                 </div>
             </div>
 
-            <!-- Right Content / Storage Viewer -->
             <div class="lg:col-span-2 bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col">
                 
-                <!-- Header Tabs & Search -->
                 <div class="flex flex-col gap-4 pb-6 border-b border-brand-border">
-                    <!-- Tabs -->
                     <div class="flex items-center bg-brand-bg p-1.5 rounded-xl border border-brand-border">
                         <button onclick="switchTab('files')" id="tab-btn-files" class="flex-1 py-2.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm">
                             <i class="fa-solid fa-folder"></i> File <span id="count-files" class="px-1.5 py-0.5 bg-white/20 rounded-full text-[10px]">0</span>
@@ -174,24 +161,15 @@
                         </button>
                     </div>
 
-                    <!-- Search Bar -->
                     <div class="relative w-full">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
                         <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari file atau catatan..." class="w-full bg-brand-bg border border-brand-border rounded-xl pl-10 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
                     </div>
                 </div>
 
-                <!-- Tab Contents Container -->
                 <div class="flex-1 pt-6 overflow-y-auto min-h-[400px]">
-                    <!-- Files View -->
-                    <div id="view-files" class="space-y-3">
-                        <!-- Filled by JS -->
-                    </div>
-
-                    <!-- Notes View -->
-                    <div id="view-notes" class="space-y-3 hidden">
-                        <!-- Filled by JS -->
-                    </div>
+                    <div id="view-files" class="space-y-3"></div>
+                    <div id="view-notes" class="space-y-3 hidden"></div>
                 </div>
 
             </div>
@@ -203,30 +181,30 @@
     <section id="fitur" class="py-16 border-t border-brand-border bg-brand-card/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Kenapa HomeStorage?</h2>
-                <p class="text-sm text-slate-400">Dirancang khusus untuk kecepatan, privasi total, dan kemudahan pengelolaan data lokal.</p>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Sinkronisasi Database Terpusat</h2>
+                <p class="text-sm text-slate-400">Akses seluruh data file dan catatan Anda dari perangkat apa saja dengan mulus.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-6">
                     <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                        <i class="fa-solid fa-server text-lg"></i>
                     </div>
-                    <h3 class="text-base font-semibold text-white mb-2">100% Privat & Aman</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Data Anda tersimpan di IndexedDB browser Anda sendiri. Tidak ada server eksternal yang membaca atau menyimpan file Anda.</p>
+                    <h3 class="text-base font-semibold text-white mb-2">Database Server</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Data disimpan di database server pusat sehingga tersinkronisasi secara real-time.</p>
                 </div>
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-6">
                     <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-bolt text-lg"></i>
+                        <i class="fa-solid fa-mobile-screen-button text-lg"></i>
                     </div>
-                    <h3 class="text-base font-semibold text-white mb-2">Akses Cepat & Instan</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Tanpa proses login, tanpa antrean unggah ke cloud. Tarik file dan langsung tersimpan dalam hitungan milidetik.</p>
+                    <h3 class="text-base font-semibold text-white mb-2">Lintas Perangkat</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Buka dari HP, tablet, atau laptop menggunakan URL server Anda.</p>
                 </div>
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-6">
                     <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
                         <i class="fa-solid fa-file-export text-lg"></i>
                     </div>
-                    <h3 class="text-base font-semibold text-white mb-2">Export Cadangan 1-Klik</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Cadangkan seluruh file dan catatan Anda kapan saja ke dalam satu file JSON terstruktur dengan aman.</p>
+                    <h3 class="text-base font-semibold text-white mb-2">Export Backup</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Cadangkan seluruh isi server kapan saja dalam format JSON.</p>
                 </div>
             </div>
         </div>
@@ -235,8 +213,8 @@
     <!-- Footer -->
     <footer id="tentang" class="border-t border-brand-border py-8 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; 2026 HomeStorage. Penyimpanan Lokal Privat.</p>
-            <p>Dibangun dengan HTML, Tailwind CSS, dan IndexedDB.</p>
+            <p>&copy; 2026 HomeStorage. Server Database Edition.</p>
+            <p>Node.js • Express • SQLite • Tailwind CSS.</p>
         </div>
     </footer>
 
@@ -245,40 +223,11 @@
 
     <!-- Application Script -->
     <script>
-        // Konfigurasi API Base URL (Ganti dengan URL publik saat deploy)
-        const API_BASE = ''; // kosong jika satu origin, atau 'https://your-public-url.com'
-
-        const DB_NAME = 'homeStorageDB';
-        const DB_VERSION = 1;
-        let db = null;
+        const API_BASE = ''; // kosong jika satu origin/host dengan backend
         let currentTab = 'files';
         let allFiles = [];
         let allNotes = [];
 
-        function initDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                request.onerror = (e) => {
-                    console.error("IndexedDB error:", e);
-                    reject(request.error);
-                };
-                request.onsuccess = () => {
-                    db = request.result;
-                    resolve(db);
-                };
-                request.onupgradeneeded = (event) => {
-                    const database = event.target.result;
-                    if (!database.objectStoreNames.contains('files')) {
-                        database.createObjectStore('files', { keyPath: 'id', autoIncrement: true });
-                    }
-                    if (!database.objectStoreNames.contains('notes')) {
-                        database.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
-                    }
-                };
-            });
-        }
-
-        // Toast notification
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -299,7 +248,6 @@
             }, 2600);
         }
 
-        // Format File Size
         function formatBytes(bytes) {
             if (bytes === 0) return '0 B';
             const k = 1024;
@@ -308,31 +256,20 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // Load Data from IndexedDB
         async function loadData() {
-            if (!db) return;
-            
-            // Files
-            const fileTx = db.transaction('files', 'readonly');
-            const fileStore = fileTx.objectStore('files');
-            allFiles = await new Promise((resolve) => {
-                const req = fileStore.getAll();
-                req.onsuccess = () => resolve(req.result.reverse());
-            });
-
-            // Notes
-            const noteTx = db.transaction('notes', 'readonly');
-            const noteStore = noteTx.objectStore('notes');
-            allNotes = await new Promise((resolve) => {
-                const req = noteStore.getAll();
-                req.onsuccess = () => resolve(req.result.reverse());
-            });
-
-            updateStats();
-            renderViews();
+            try {
+                const res = await fetch(`${API_BASE}/api/data`);
+                const data = await res.json();
+                allFiles = data.files || [];
+                allNotes = data.notes || [];
+                updateStats();
+                renderViews();
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal memuat data dari server', 'error');
+            }
         }
 
-        // Update Stats
         function updateStats() {
             const totalFiles = allFiles.length;
             const totalNotes = allNotes.length;
@@ -346,7 +283,6 @@
             document.getElementById('count-notes').textContent = totalNotes;
         }
 
-        // Switch Tabs
         function switchTab(tab) {
             currentTab = tab;
             const btnFiles = document.getElementById('tab-btn-files');
@@ -355,32 +291,30 @@
             const viewNotes = document.getElementById('view-notes');
 
             if (tab === 'files') {
-                btnFiles.className = "flex-1 sm:flex-initial px-5 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm";
-                btnNotes.className = "flex-1 sm:flex-initial px-5 py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-2";
+                btnFiles.className = "flex-1 py-2.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm";
+                btnNotes.className = "flex-1 py-2.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-2";
                 viewFiles.classList.remove('hidden');
                 viewNotes.classList.add('hidden');
             } else {
-                btnNotes.className = "flex-1 sm:flex-initial px-5 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm";
-                btnFiles.className = "flex-1 sm:flex-initial px-5 py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-2";
+                btnNotes.className = "flex-1 py-2.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm";
+                btnFiles.className = "flex-1 py-2.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-2";
                 viewNotes.classList.remove('hidden');
                 viewFiles.classList.add('hidden');
             }
             renderViews();
         }
 
-        // Render Views with Search Filtering
         function renderViews() {
             const query = document.getElementById('search-input').value.toLowerCase();
             
-            // Render Files
             const filesContainer = document.getElementById('view-files');
-            const filteredFiles = allFiles.filter(f => f.name.toLowerCase().includes(query));
+            const filteredFiles = allFiles.filter(f => f.original_name.toLowerCase().includes(query));
             
             if (filteredFiles.length === 0) {
                 filesContainer.innerHTML = `
                     <div class="text-center py-16 text-slate-500">
                         <i class="fa-solid fa-folder-open text-4xl mb-3 text-slate-600"></i>
-                        <p class="text-sm font-medium text-slate-400">Belum ada file tersimpan</p>
+                        <p class="text-sm font-medium text-slate-400">Belum ada file di server</p>
                         <p class="text-xs text-slate-500 mt-1">Unggah file melalui panel di sebelah kiri</p>
                     </div>`;
             } else {
@@ -388,21 +322,21 @@
                     <div class="bg-brand-bg/60 border border-brand-border rounded-xl p-4 flex items-center justify-between gap-4 hover:border-slate-700 transition">
                         <div class="flex items-center gap-3 min-w-0">
                             <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid ${getFileIcon(file.type)}"></i>
+                                <i class="fa-solid ${getFileIcon(file.mime_type)}"></i>
                             </div>
                             <div class="min-w-0">
-                                <h4 class="text-xs font-medium text-white truncate">${escapeHtml(file.name)}</h4>
+                                <h4 class="text-xs font-medium text-white truncate">${escapeHtml(file.original_name)}</h4>
                                 <div class="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
                                     <span>${formatBytes(file.size)}</span>
                                     <span>•</span>
-                                    <span>${new Date(file.date).toLocaleDateString('id-ID')}</span>
+                                    <span>${new Date(file.created_at).toLocaleDateString('id-ID')}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center gap-2 flex-shrink-0">
-                            <button onclick="downloadFile(${file.id})" title="Unduh" class="w-8 h-8 rounded-lg bg-brand-card hover:bg-slate-800 text-cyan-400 border border-brand-border flex items-center justify-center transition">
+                            <a href="${API_BASE}/api/files/${file.id}/download" target="_blank" title="Unduh" class="w-8 h-8 rounded-lg bg-brand-card hover:bg-slate-800 text-cyan-400 border border-brand-border flex items-center justify-center transition">
                                 <i class="fa-solid fa-download text-xs"></i>
-                            </button>
+                            </a>
                             <button onclick="deleteFile(${file.id})" title="Hapus" class="w-8 h-8 rounded-lg bg-brand-card hover:bg-slate-800 text-rose-400 border border-brand-border flex items-center justify-center transition">
                                 <i class="fa-solid fa-trash text-xs"></i>
                             </button>
@@ -411,7 +345,6 @@
                 `).join('');
             }
 
-            // Render Notes
             const notesContainer = document.getElementById('view-notes');
             const filteredNotes = allNotes.filter(n => n.title.toLowerCase().includes(query) || n.content.toLowerCase().includes(query));
 
@@ -419,7 +352,7 @@
                 notesContainer.innerHTML = `
                     <div class="text-center py-16 text-slate-500">
                         <i class="fa-solid fa-note-sticky text-4xl mb-3 text-slate-600"></i>
-                        <p class="text-sm font-medium text-slate-400">Belum ada catatan tersimpan</p>
+                        <p class="text-sm font-medium text-slate-400">Belum ada catatan di server</p>
                         <p class="text-xs text-slate-500 mt-1">Buat catatan melalui panel di sebelah kiri</p>
                     </div>`;
             } else {
@@ -437,7 +370,7 @@
                             </div>
                         </div>
                         <p class="text-xs text-slate-300 whitespace-pre-wrap leading-relaxed mb-3">${escapeHtml(note.content)}</p>
-                        <div class="text-[10px] text-slate-500">${new Date(note.date).toLocaleString('id-ID')}</div>
+                        <div class="text-[10px] text-slate-500">${new Date(note.created_at).toLocaleString('id-ID')}</div>
                     </div>
                 `).join('');
             }
@@ -461,56 +394,46 @@
             renderViews();
         }
 
-        // File Operations
-        async function saveFiles(fileList) {
-            const tx = db.transaction('files', 'readwrite');
-            const store = tx.objectStore('files');
+        async function uploadFiles(fileList) {
+            const formData = new FormData();
             for (let file of fileList) {
-                store.add({
-                    name: file.name,
-                    type: file.type,
-                    size: file.size,
-                    blob: file,
-                    date: Date.now()
-                });
+                formData.append('files', file);
             }
-            tx.oncomplete = () => {
-                showToast(`${fileList.length} file berhasil diunggah`);
-                loadData();
-            };
-            tx.onerror = () => showToast('Gagal mengunggah file', 'error');
-        }
 
-        async function downloadFile(id) {
-            const tx = db.transaction('files', 'readonly');
-            const store = tx.objectStore('files');
-            const req = store.get(id);
-            req.onsuccess = () => {
-                const file = req.result;
-                if (file && file.blob) {
-                    const url = URL.createObjectURL(file.blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = file.name;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                    showToast(`Mengunduh ${file.name}`);
+            try {
+                showToast('Mengunggah file ke server...', 'info');
+                const res = await fetch(`${API_BASE}/api/files`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (res.ok) {
+                    showToast(`${fileList.length} file berhasil diunggah`);
+                    loadData();
+                } else {
+                    showToast('Gagal mengunggah file', 'error');
                 }
-            };
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal terhubung ke server', 'error');
+            }
         }
 
         async function deleteFile(id) {
-            if (!confirm('Hapus file ini?')) return;
-            const tx = db.transaction('files', 'readwrite');
-            const store = tx.objectStore('files');
-            store.delete(id);
-            tx.oncomplete = () => {
-                showToast('File berhasil dihapus');
-                loadData();
-            };
+            if (!confirm('Hapus file ini dari server?')) return;
+            try {
+                const res = await fetch(`${API_BASE}/api/files/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('File berhasil dihapus');
+                    loadData();
+                } else {
+                    showToast('Gagal menghapus file', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal terhubung ke server', 'error');
+            }
         }
 
-        // Note Operations
         document.getElementById('note-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const title = document.getElementById('note-title').value.trim();
@@ -521,23 +444,26 @@
                 return;
             }
 
-            const tx = db.transaction('notes', 'readwrite');
-            const store = tx.objectStore('notes');
-            store.add({
-                title: title || 'Tanpa Judul',
-                content: content,
-                date: Date.now()
-            });
-            tx.oncomplete = () => {
-                document.getElementById('note-title').value = '';
-                document.getElementById('note-content').value = '';
-                showToast('Catatan berhasil disimpan');
-                loadData();
-            };
-            tx.onerror = () => showToast('Gagal menyimpan catatan', 'error');
+            try {
+                const res = await fetch(`${API_BASE}/api/notes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content })
+                });
+                if (res.ok) {
+                    document.getElementById('note-title').value = '';
+                    document.getElementById('note-content').value = '';
+                    showToast('Catatan berhasil disimpan ke server');
+                    loadData();
+                } else {
+                    showToast('Gagal menyimpan catatan', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal terhubung ke server', 'error');
+            }
         });
 
-        // Shortcut Ctrl+Enter for notes
         document.getElementById('note-content').addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
@@ -545,96 +471,43 @@
             }
         });
 
-        async function copyNote(id) {
-            const tx = db.transaction('notes', 'readonly');
-            const store = tx.objectStore('notes');
-            const req = store.get(id);
-            req.onsuccess = () => {
-                const note = req.result;
-                if (note) {
-                    const text = `${note.title}\n\n${note.content}`;
-                    navigator.clipboard.writeText(text).then(() => {
-                        showToast('Catatan disalin ke clipboard');
-                    });
-                }
-            };
+        function copyNote(id) {
+            const note = allNotes.find(n => n.id === id);
+            if (note) {
+                const text = `${note.title}\n\n${note.content}`;
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Catatan disalin ke clipboard');
+                });
+            }
         }
 
         async function deleteNote(id) {
-            if (!confirm('Hapus catatan ini?')) return;
-            const tx = db.transaction('notes', 'readwrite');
-            const store = tx.objectStore('notes');
-            store.delete(id);
-            tx.oncomplete = () => {
-                showToast('Catatan berhasil dihapus');
-                loadData();
-            };
-        }
-
-        // Export All Data (FR-13)
-        async function blobToBase64(blob) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-        }
-
-        async function exportData() {
-            if (allFiles.length === 0 && allNotes.length === 0) {
-                showToast('Tidak ada data untuk diekspor.', 'info');
-                return;
-            }
-
-            showToast('Mempersiapkan file backup...', 'info');
-
+            if (!confirm('Hapus catatan ini dari server?')) return;
             try {
-                const exportFiles = [];
-                for (let file of allFiles) {
-                    const base64Data = await blobToBase64(file.blob);
-                    exportFiles.push({
-                        name: file.name,
-                        type: file.type,
-                        size: file.size,
-                        date: file.date,
-                        data: base64Data
-                    });
+                const res = await fetch(`${API_BASE}/api/notes/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('Catatan berhasil dihapus');
+                    loadData();
+                } else {
+                    showToast('Gagal menghapus catatan', 'error');
                 }
-
-                const exportPayload = {
-                    app: "HomeStorage",
-                    version: "1.1",
-                    exportedAt: new Date().toISOString(),
-                    files: exportFiles,
-                    notes: allNotes.map(n => ({ title: n.title, content: n.content, date: n.date }))
-                };
-
-                const jsonStr = JSON.stringify(exportPayload, null, 2);
-                const blob = new Blob([jsonStr], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                const dateStr = new Date().toISOString().split('T')[0];
-                a.href = url;
-                a.download = `home-storage-backup-${dateStr}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-
-                showToast('Backup berhasil diunduh');
             } catch (err) {
                 console.error(err);
-                showToast('Gagal membuat file backup', 'error');
+                showToast('Gagal terhubung ke server', 'error');
             }
         }
 
-        // Drag and Drop Setup
+        function exportData() {
+            window.location.href = `${API_BASE}/api/export`;
+        }
+
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('file-input');
 
         dropzone.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
-                saveFiles(e.target.files);
+                uploadFiles(e.target.files);
                 fileInput.value = '';
             }
         });
@@ -657,22 +530,12 @@
             const dt = e.dataTransfer;
             const files = dt.files;
             if (files.length > 0) {
-                saveFiles(files);
+                uploadFiles(files);
             }
         });
 
-        // Initialize App on Load
-        window.addEventListener('DOMContentLoaded', async () => {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
-            }
-            try {
-                await initDB();
-                await loadData();
-            } catch (err) {
-                console.error(err);
-                showToast('Gagal memuat basis data lokal', 'error');
-            }
+        window.addEventListener('DOMContentLoaded', () => {
+            loadData();
         });
     </script>
 </body>

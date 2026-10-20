@@ -2,7 +2,7 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HomeStorage — Penyimpanan File & Catatan Privat Lokal</title>
     <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -117,30 +117,30 @@
     </section>
 
     <!-- Main Workspace Section -->
-    <main id="penyimpanan" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main id="penyimpanan" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             
             <!-- Left Sidebar / Actions Form -->
             <div class="lg:col-span-1 space-y-6">
                 <!-- Upload Panel -->
-                <div class="bg-brand-card border border-brand-border rounded-2xl p-6 shadow-xl">
-                    <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 shadow-xl">
+                    <h2 class="text-base sm:text-lg font-semibold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-file-arrow-up text-cyan-400"></i> Unggah File Baru
                     </h2>
                     
-                    <div id="dropzone" class="border-2 border-dashed border-brand-border hover:border-indigo-500 rounded-xl p-8 text-center cursor-pointer transition bg-brand-bg/50 group">
+                    <div id="dropzone" class="border-2 border-dashed border-brand-border active:border-indigo-500 hover:border-indigo-500 rounded-xl p-6 sm:p-8 text-center cursor-pointer transition bg-brand-bg/50 group select-none">
                         <div class="w-12 h-12 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
                             <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
                         </div>
-                        <p class="text-sm font-medium text-slate-200 mb-1">Seret file ke sini atau <span class="text-cyan-400 underline">telusuri</span></p>
-                        <p class="text-xs text-slate-400">Mendukung semua format file</p>
+                        <p class="text-xs sm:text-sm font-medium text-slate-200 mb-1">Ketuk untuk memilih file atau seret ke sini</p>
+                        <p class="text-[11px] text-slate-400">Mendukung semua format file</p>
                         <input type="file" id="file-input" class="hidden" multiple>
                     </div>
                 </div>
 
                 <!-- Note Form Panel -->
-                <div class="bg-brand-card border border-brand-border rounded-2xl p-6 shadow-xl">
-                    <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 shadow-xl">
+                    <h2 class="text-base sm:text-lg font-semibold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-note-sticky text-indigo-400"></i> Buat Catatan Baru
                     </h2>
                     <form id="note-form" class="space-y-4">
@@ -148,9 +148,9 @@
                             <input type="text" id="note-title" placeholder="Judul catatan..." class="w-full bg-brand-bg border border-brand-border rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
                         </div>
                         <div>
-                            <textarea id="note-content" rows="4" placeholder="Tulis catatan penting di sini... (Ctrl+Enter untuk simpan)" class="w-full bg-brand-bg border border-brand-border rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
+                            <textarea id="note-content" rows="4" placeholder="Tulis catatan penting di sini..." class="w-full bg-brand-bg border border-brand-border rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] text-white font-medium text-sm transition shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-floppy-disk"></i> Simpan Catatan
                         </button>
                     </form>
@@ -158,24 +158,24 @@
             </div>
 
             <!-- Right Content / Storage Viewer -->
-            <div class="lg:col-span-2 bg-brand-card border border-brand-border rounded-2xl p-6 shadow-xl flex flex-col">
+            <div class="lg:col-span-2 bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col">
                 
                 <!-- Header Tabs & Search -->
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-6 border-b border-brand-border">
+                <div class="flex flex-col gap-4 pb-6 border-b border-brand-border">
                     <!-- Tabs -->
                     <div class="flex items-center bg-brand-bg p-1.5 rounded-xl border border-brand-border">
-                        <button onclick="switchTab('files')" id="tab-btn-files" class="flex-1 sm:flex-initial px-5 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm">
+                        <button onclick="switchTab('files')" id="tab-btn-files" class="flex-1 py-2.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition flex items-center justify-center gap-2 shadow-sm">
                             <i class="fa-solid fa-folder"></i> File <span id="count-files" class="px-1.5 py-0.5 bg-white/20 rounded-full text-[10px]">0</span>
                         </button>
-                        <button onclick="switchTab('notes')" id="tab-btn-notes" class="flex-1 sm:flex-initial px-5 py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-2">
+                        <button onclick="switchTab('notes')" id="tab-btn-notes" class="flex-1 py-2.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-2">
                             <i class="fa-solid fa-note-sticky"></i> Catatan <span id="count-notes" class="px-1.5 py-0.5 bg-brand-border rounded-full text-[10px]">0</span>
                         </button>
                     </div>
 
                     <!-- Search Bar -->
-                    <div class="relative">
+                    <div class="relative w-full">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari file atau catatan..." class="w-full sm:w-64 bg-brand-bg border border-brand-border rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari file atau catatan..." class="w-full bg-brand-bg border border-brand-border rounded-xl pl-10 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
                     </div>
                 </div>
 
